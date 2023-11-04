@@ -14,21 +14,45 @@ body {
   grid-gap: 20px;
   padding: 20px;
 }
+@media (min-width: 1199px) {
+  .gallery {
+    grid-template-columns: repeat(8, 1fr);
+  }
+}
+@media (max-width: 768px) {
+  .gallery {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+@media (max-width: 575px) {
+  .gallery {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+@media (max-width: 480px) {
+  .gallery {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
 .image img {
   height: 100%;
   width: 100%;
   border-radius: 10px;
   object-fit: cover;
   object-position: center;
-  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+  transition: transform 0.5s ease-in-out;
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
+    rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
 }
 .gallery .image {
   border: 1px solid #0000009c;
   border-radius: 10px;
+  transform: translate(0px, 0px);
   transition: transform 0.5s ease-in-out;
   position: relative;
   cursor: pointer;
-  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
+    rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
 }
 .image:hover {
   transform: translate3d(0, -6px, 0);
@@ -37,7 +61,15 @@ body {
   grid-column: span 2;
   grid-row: span 2;
 }
-.gallery .image:hover, .add:hover {
+.gallery .image:first-child:after {
+  content: "Featured";
+  position: absolute;
+  top: 5px;
+  right: 10px;
+  font-size: 26px;
+}
+.gallery .image:hover,
+.add:hover {
   opacity: 0.5;
 }
 .checkbox {
@@ -69,12 +101,13 @@ body {
   border-bottom-right-radius: 0;
   border-bottom: 1px solid black;
 }
-.selection p, .add p {
+.selection p,
+.add p {
   font-size: 20px;
   font-weight: bold;
 }
 .selected-items {
-  display:flex;
+  display: flex;
   align-items: center;
   justify-content: center;
   gap: 10px;
