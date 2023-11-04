@@ -21,8 +21,9 @@ const Image = ({ image, index, moveImage, selected, toggleSelection }) => {
       <div
         ref={(node) => ref(drop(node))}
         className={`image ${selected ? "selected" : ""}`}
+        onClick={toggleSelection}
       >
-        <input type="checkbox" className='checkbox' checked={selected} onChange={toggleSelection} />
+        <input type="checkbox" className='checkbox' checked={selected} onChange={toggleSelection}/>
         <img src={image} height={200} alt={`Image ${index}`} />
       </div>
     );

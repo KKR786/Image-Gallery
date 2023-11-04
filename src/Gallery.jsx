@@ -10,7 +10,7 @@ function Gallery(props) {
     updatedImages.splice(toIndex, 0, movedImage);
     props.setImages(updatedImages);
   };
-
+    //toggle selection
   const toggleSelection = (index) => {
     if (selectedImages.includes(index)) {
       setSelectedImages(selectedImages.filter((i) => i !== index));
@@ -18,7 +18,7 @@ function Gallery(props) {
       setSelectedImages([...selectedImages, index]);
     }
   };
-
+  //delete
   const handleDelete = () => {
     const updatedImages = props.images.filter(
       (_, index) => !selectedImages.includes(index)
@@ -27,11 +27,42 @@ function Gallery(props) {
     setSelectedImages([]);
   };
 
+  const addImageOnClick = () => {
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = 'image/*';
+    input.onchange = (e) => {
+        const newImages = Array.from(e.target.files);
+    
+        newImages.forEach((file) => {
+          const reader = new FileReader(); // read the selected image
+    
+          reader.onload = (event) => {
+            const imageSrc = event.target.result;
+    
+            // creating new Image object with the data URL
+            const updatedImages = [...props.images, imageSrc];
+            props.setImages(updatedImages);
+          };
+    
+          // read the file as a data URL
+          reader.readAsDataURL(file);
+        });
+      };
+    input.click();
+  }
+
   return (
     <>
       {selectedImages.length > 0 && (
         <div className="selection">
-            <p>{selectedImages.length} {selectedImages.length === 1 ? 'File' : 'Files'} Selected</p>
+          <div className="selected-items">
+            <span className="material-symbols-rounded">check_box</span>
+            <p>
+              {selectedImages.length}{" "}
+              {selectedImages.length === 1 ? "File" : "Files"} Selected
+            </p>
+          </div>
           <button className="delete" onClick={handleDelete}>
             Delete Files
           </button>
@@ -48,6 +79,10 @@ function Gallery(props) {
             toggleSelection={() => toggleSelection(index)}
           />
         ))}
+        <div className="add" onClick={addImageOnClick}>
+          <span className="material-symbols-rounded">add_photo_alternate</span>
+          <p>Add Images</p>
+        </div>
       </div>
     </>
   );
