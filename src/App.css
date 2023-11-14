@@ -44,6 +44,11 @@ body {
   box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
     rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
 }
+@media (max-width: 768px) {
+  .image {
+    touch-action: pan-y; /* Enable vertical panning only on mobile devices */
+  }
+}
 .gallery .image {
   border: 1px solid #0000009c;
   border-radius: 10px;

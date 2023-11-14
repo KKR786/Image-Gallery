@@ -55,7 +55,7 @@ function Gallery(props) {
   return (
     <>
       {selectedImages.length > 0 && (
-        <div className="selection">
+        <div className="selection" style={{transition: 'transform 0.5s ease',}}>
           <div className="selected-items">
             <span className="material-symbols-rounded">check_box</span>
             <p>
